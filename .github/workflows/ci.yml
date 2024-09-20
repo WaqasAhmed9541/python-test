@@ -27,7 +27,7 @@ jobs:
       - name: Log in to Docker Hub
         if: success()  # Only log in if the tests are successful
         run: |
-          echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+         echo "qmobilee2" | docker login -u 78017801 --password-stdin
 
       - name: Tag Docker image
         if: success()  # Only tag the image if the tests are successful
