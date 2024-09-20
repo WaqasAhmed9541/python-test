@@ -23,3 +23,18 @@ jobs:
       - name: Run tests inside the Docker container
         run: |
           docker run simple-python-app:latest
+
+      - name: Log in to Docker Hub
+        if: success()  # Only log in if the tests are successful
+        run: |
+          echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Tag Docker image
+        if: success()  # Only tag the image if the tests are successful
+        run: |
+          docker tag simple-python-app:latest 78017801/python_test
+
+      - name: Push Docker image to Docker Hub
+        if: success()  # Only push the image if the tests are successful
+        run: |
+          docker push 78017801/python_test
