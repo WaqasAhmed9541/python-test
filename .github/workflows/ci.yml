@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master  # Change to 'master' since you use this branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.6.1
+
+      - name: Build the Docker image
+        run: |
+          docker build -t simple-python-app:latest .
+
+      - name: Run tests inside the Docker container
+        run: |
+          docker run simple-python-app:latest
